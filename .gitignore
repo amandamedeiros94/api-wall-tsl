@@ -1,0 +1,5 @@
+.DS_Store
+*.py[co]
+__pycache__
+db.sqlite3
+staticfiles
