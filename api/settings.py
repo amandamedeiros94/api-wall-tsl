@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
     'wall.apps.WallConfig',
 ]
 MIDDLEWARE = [
@@ -87,6 +88,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Rest framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ]
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    )
 }
+
+# Email
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'amandamedeiros'
+EMAIL_HOST_PASSWORD = 'Rtn2V38pLWuMtZc6'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
