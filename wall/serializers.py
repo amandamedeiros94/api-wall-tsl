@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from rest_framework import serializers
@@ -34,16 +35,17 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
 
-        send_mail(
-            'Welcome to the TSL Wall',
-            'Thank you for registering at TSL Wall!\n\n'
-            'You can post new messages on:\n'
-            'http://web-wall-tsl.herokuapp.com\n\n'
-            'Regards,\n'
-            'Amanda.',
-            'amandamedeiros.nave@gmail.com',
-            [validated_data['email']],
-            fail_silently=True
-        )
+        if settings.EMAIL_HOST:
+            send_mail(
+                'Welcome to the TSL Wall',
+                'Thank you for registering at TSL Wall!\n\n'
+                'You can post new messages on:\n'
+                'http://web-wall-tsl.herokuapp.com\n\n'
+                'Regards,\n'
+                'Amanda.',
+                'amandamedeiros.nave@gmail.com',
+                [validated_data['email']],
+                fail_silently=True
+            )
 
         return user
